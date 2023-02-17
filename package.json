@@ -1,0 +1,23 @@
+{
+  "name": "cooliganpangjordan_imd3901_a3",
+  "version": "1.0.0",
+  "description": "A-Frame Multi-User Interaction Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OcularCreo/cooliganPangJordan_IMD3901_A3.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/OcularCreo/cooliganPangJordan_IMD3901_A3/issues"
+  },
+  "homepage": "https://github.com/OcularCreo/cooliganPangJordan_IMD3901_A3#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  },
+  "devDependencies": {}
+}
