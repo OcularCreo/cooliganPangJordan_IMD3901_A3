@@ -4,10 +4,53 @@
         <title>Multi User Interaction</title>
         <script src="js/aframe.min.js"></script>
         <script src="js/aframe-environment-component.min.js"></script>
+        
+        <script src="https://unpkg.com/aframe-event-set-component@4.2.1/dist/aframe-event-set-component.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/donmccurdy/aframe-extras@v6.1.1/dist/aframe-extras.misc.min.js"></script>
+        <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
+
+        <script src="js/pickup.js"></script>
     </head>
     <body>
+
+        <a href="/wack.html">
+            <button id="btn" style="position: absolute; z-index:9999;">Testing Button</button>
+        </a>
         <a-scene>
+            <!--camera-->
+            <a-camera id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive;"></a-entity>
+            </a-camera>
+
             <a-entity environment="preset:default;"></a-entity>
+            
+            <a-box holdable class="interactive" id="testCube" position="0 0.5 0" width="1" depth="1" height="1"></a-box>
+
+            <!--transparent box? -->
+            <!--<a-box position="-1 1 -1" material="transperent:true; opacity:0;"></a-box>-->
+
+            <script src="/socket.io/socket.io.js"></script>
+            <script>
+                
+                let btn = document.getElementById("btn");
+
+                let socket = io();
+
+                socket.on('connect', (userData)=> {
+
+                    btn.addEventListener('click', function(){
+                        socket.emit('btnClick');
+                    });
+
+                    socket.on('posChange', (data)=> {
+                        let cube = document.getElementById("testCube");
+                        cube.setAttribute("position", {x: data.x, y:data.y, z:data.z});
+                        console.log('changed position');
+
+                    });
+                });
+
+            </script>
 
         </a-scene>
     </body>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Mole Control</title>
+        <script src="js/aframe.min.js"></script>
+        <script src="js/aframe-environment-component.min.js"></script>
+        
+        <script src="js/pickup.js"></script>
+    </head>
+    <body>
+        <a-scene>
+            
+            <!-- ASSETS -->
+            <a-assets timeout="10000">
+            </a-assets>
+            
+            <!-- CAMERA -->
+            <a-camera id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive;"></a-entity>
+            </a-camera>
+
+            <!-- ENVIRONMENT -->
+            <a-entity environment="preset:forest;"></a-entity>
+
+        </a-scene>
+    </body>
+</html>
