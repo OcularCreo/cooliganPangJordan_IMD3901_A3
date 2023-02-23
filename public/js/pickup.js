@@ -3,7 +3,6 @@ let holding = false;
 let testCube = 0;
 
 let grabbedItem = 0;
-
 let camEl = 0;
 
 window.onload = function(){

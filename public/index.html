@@ -10,12 +10,13 @@
         <script src="https://unpkg.com/super-hands@^3.0.3/dist/super-hands.min.js"></script>
 
         <script src="js/pickup.js"></script>
+        <script src="js/mole.js"></script>
     </head>
     <body>
 
-        <a href="/wack.html">
-            <button id="btn" style="position: absolute; z-index:9999;">Testing Button</button>
+       <!--<a href="/wack.html"> --> 
         </a>
+        <button id="btn" style="position: absolute; z-index:9999;">Testing Button</button>
         <a-scene>
             <!--camera-->
             <a-camera id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
@@ -24,7 +25,18 @@
 
             <a-entity environment="preset:default;"></a-entity>
             
-            <a-box holdable class="interactive" id="testCube" position="0 0.5 0" width="1" depth="1" height="1"></a-box>
+            <a-box holdable class="interactive" id="testCube" position="3 0.5 3" width="1" depth="1" height="1"></a-box>
+
+            <!--Place holder for moles-->
+            <a-entity position="0 0 0" id="moles">
+                <a-cylinder id="m0" moleanim class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+                <a-cylinder id="m1" moleanim class="interactive" position="1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+                <a-cylinder id="m2" moleanim class="interactive" position="-1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+            </a-entity>
+            
+            <!--<a-cylinder class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"
+                            animation__click="property:position.y; to:-0.5; from:0.5; startEvents:click; dur:300;"
+                            animation__pop="property:position.y; to:0.5; from:-0.5; startEvents:popping; dur:300;"></a-cylinder>-->
 
             <!--transparent box? -->
             <!--<a-box position="-1 1 -1" material="transperent:true; opacity:0;"></a-box>-->
@@ -32,8 +44,6 @@
             <script src="/socket.io/socket.io.js"></script>
             <script>
                 
-                let btn = document.getElementById("btn");
-
                 let socket = io();
 
                 socket.on('connect', (userData)=> {
@@ -42,12 +52,35 @@
                         socket.emit('btnClick');
                     });
 
+                    //adding change events
+                    for(i=0; i < moles.length; i++){
+                        moles[i].addEventListener('moleEv', function(){
+                            let thisPos = this.getAttribute('position');
+                            
+                            socket.emit('moleMoved', {id:this.id, x:thisPos.x, y:thisPos.y, z:thisPos.z});
+                            
+                        });
+                    }
+
                     socket.on('posChange', (data)=> {
                         let cube = document.getElementById("testCube");
                         cube.setAttribute("position", {x: data.x, y:data.y, z:data.z});
                         console.log('changed position');
 
                     });
+
+                    //server determines which mole to have pop up
+                    socket.on('molePop', (data)=>{
+                        let mole = moles[data];
+                        //console.log(data);
+                        mole.emit('rising', null, false);
+                    });
+
+                    socket.on('moleDrop', (data)=>{
+                        
+                    });
+
+
                 });
 
             </script>

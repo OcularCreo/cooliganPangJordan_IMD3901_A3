@@ -36,4 +36,14 @@ io.on('connection', (socket)=>{
         console.log("changing position");
     });
 
+    socket.on('moleMoved', (data)=>{
+        io.sockets.emit('molePos', {id:data.id, x:data.x, y:data.y, z:data.z});
+    });
+
+    setInterval(function(){
+        console.log(clients);
+        let randIdx = Math.floor(Math.random() * 3);    //make sure to watch for length of moles
+        socket.broadcast.emit('molePop', randIdx);            //sending random index to all clients
+    }, 5000);
+
 });
