@@ -22,6 +22,59 @@
             <!-- ENVIRONMENT -->
             <a-entity environment="preset:forest;"></a-entity>
 
+            <!-- 
+
+            GRID
+            (0, 0) at center of config. Ex index 7 is at (2, 2)
+
+            Index Order
+            1   2   3   4
+
+            5   6   7   8
+
+            9   10  11  12
+
+            13  14  15  16
+            
+            -->
+
+            <!--Top row -->
+            <a-cylinder position="-6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="-2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+
+            <!--Top-mid row -->
+            <a-cylinder position="-6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="-2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+
+            <!--Bottom-mid row -->
+            <a-cylinder position="-6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="-2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+
+            <!--Bottom row -->
+            <a-cylinder position="-6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="-2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder position="6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            
+            <!-- Mole Model -->
+            <a-entity position="0 0 0" id="mole">
+                <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
+                <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
+                <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
+                <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05"></a-sphere>
+                <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
+                <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
+            </a-entity>
+
+            <!-- Cork Model -->
+            <a-cone position="2 0 2" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+
         </a-scene>
     </body>
 </html>

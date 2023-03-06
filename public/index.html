@@ -14,9 +14,10 @@
     </head>
     <body>
 
-       <!--<a href="/wack.html"> --> 
+       <a href="/wack.html">
+            <button id="btn" style="position: absolute; z-index:9999;">Testing Button</button> 
         </a>
-        <button id="btn" style="position: absolute; z-index:9999;">Testing Button</button>
+        
         <a-scene>
             <!--camera-->
             <a-camera id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
@@ -27,11 +28,43 @@
             
             <a-box holdable class="interactive" id="testCube" position="3 0.5 3" width="1" depth="1" height="1"></a-box>
 
+            <!--Mole Model -->
+            <a-entity position="0 0 0" class="">
+                <a-entity class="interactive" position="1 0 0" id="mole">
+                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
+                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25" class="interactive"></a-sphere>
+                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
+                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025" class="interactive"></a-sphere>
+                </a-entity>
+                <a-entity class="interactive" position="0 0 0" id="mole">
+                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
+                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25" class="interactive"></a-sphere>
+                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
+                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025" class="interactive"></a-sphere>
+                </a-entity>
+                <a-entity class="interactive" position="-1 0 0" id="mole">
+                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
+                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25" class="interactive"></a-sphere>
+                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
+                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025" class="interactive"></a-sphere>
+                </a-entity>
+            </a-entity>
+            
+
+            <!-- Cork Model -->
+            <a-cone position="0 0.5 0" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+
             <!--Place holder for moles-->
-            <a-entity position="0 0 0" id="moles">
-                <a-cylinder id="m0" moleanim class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
-                <a-cylinder id="m1" moleanim class="interactive" position="1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
-                <a-cylinder id="m2" moleanim class="interactive" position="-1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+            <a-entity position="5 0 0" id="moles">
+                <a-cylinder id="0" moleanim class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+                <a-cylinder id="1" moleanim class="interactive" position="1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+                <a-cylinder id="2" moleanim class="interactive" position="-1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
             </a-entity>
             
             <!--<a-cylinder class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"
@@ -52,16 +85,15 @@
                         socket.emit('btnClick');
                     });
 
+
                     //adding change events
                     for(i=0; i < moles.length; i++){
-                        moles[i].addEventListener('moleEv', function(){
-                            let thisPos = this.getAttribute('position');
-                            
-                            socket.emit('moleMoved', {id:this.id, x:thisPos.x, y:thisPos.y, z:thisPos.z});
-                            
+                        moles[i].addEventListener('click', function(){
+                            socket.emit('mHit', this.id);
                         });
                     }
 
+                    //not needed anymore
                     socket.on('posChange', (data)=> {
                         let cube = document.getElementById("testCube");
                         cube.setAttribute("position", {x: data.x, y:data.y, z:data.z});
@@ -71,13 +103,17 @@
 
                     //server determines which mole to have pop up
                     socket.on('molePop', (data)=>{
-                        let mole = moles[data];
-                        //console.log(data);
-                        mole.emit('rising', null, false);
+                        
+                        for(let i = 0; i < data.length; i++){
+                            let mole = moles[data[i]];
+                            mole.emit('rising', null, false);
+                        }
+
                     });
 
                     socket.on('moleDrop', (data)=>{
-                        
+                        let mole = moles[data];
+                        mole.emit('fall', null, false);
                     });
 
 
