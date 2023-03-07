@@ -84,6 +84,7 @@ io.on('connection', (socket)=>{
 
 let cycle = 0;      //tracks what cycle the game is on (number of times a set of moles have popped up)
 let moleNum = 2;    //variable for how many moles to have pop up
+let corkPositions = [{x:4, y: 1, z: 4}, {x:-4, y: 1, z: 4}, {x:4, y: 1, z: -4}, {x:-4, y: 1, z: -4}];
 
 //rises and drop moles on given interval.
 setInterval(function(){
@@ -111,7 +112,16 @@ setInterval(function(){
             io.sockets.emit('moleDrop', mStand[j]);
         }
         
+        //adds 10% chance component to spawning in corks
+        let chance = Math.random();
+        if(chance < 0.1){
+            //spawn in cork at same location for all users
+            let corkIdx = Math.floor(Math.random() * 4);
+            io.sockets.emit('spawnCork', corkPositions[corkIdx]);
+        }
+
         //wait for all moles to be dropped. Then have new ones stand up.
+        //determine what type of item to have pop up, then send.
         setTimeout(function(){
             io.sockets.emit('molePop', pushUp);
         }, 300);

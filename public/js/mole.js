@@ -1,5 +1,8 @@
 
 let moles = 0;  // array of moles
+let holes = 0;  // array of holes
+let corks = 0;
+
 moleNum = 16;   //for number of moles in the game
 
 //animation to move object typically moles
@@ -28,13 +31,15 @@ AFRAME.registerComponent('moleanim', {
 window.onload = function(){
 
     moles = document.getElementById("moles").children;
+    holes = document.getElementById("holes").children;
+    //corks = document.getElementById("corks").children;
 
     //adding click events
     //when clicked the moles should emit the mHit to the server to update other players
-    //console.log(moles);
     for(i=0; i < moles.length; i++){
         moles[i].addEventListener('click', function(){
-            socket.emit('mHit', this.id);
+            let myId = Number(this.id.slice(-1));
+            socket.emit('mHit', myId);
         });
     }
 
