@@ -20,8 +20,9 @@
         
         <a-scene>
             <!--camera-->
-            <a-camera id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
+            <a-camera curpos id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
                 <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive;"></a-entity>
+                <a-box></a-box>
             </a-camera>
 
             <a-entity environment="preset:default;"></a-entity>
@@ -58,7 +59,7 @@
             
 
             <!-- Cork Model -->
-            <a-cone position="0 0.5 0" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+            <a-cone holdable class="interactive" position="0 0.5 1" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
 
             <!--Place holder for moles-->
             <a-entity position="5 0 0" id="moles">
@@ -81,10 +82,72 @@
 
                 socket.on('connect', (userData)=> {
 
+                    console.log(socket.id);
+
+                    /*
+                    AFRAME.registerComponent('curpos', {
+                        init:function(){
+                            let rot = this.el.getAttribute('rotation');
+                            let pos = this.el.getAttribute('position');
+                            socket.emit('updatePlayer', [pos, rot, socket.id]);
+                            console.log('hello');
+                        }
+                    });*/
+
+                    setInterval(function(){
+                        let camera = document.getElementById('camera');
+                        
+                        let rot = camera.getAttribute('rotation');
+                        let pos = camera.getAttribute('position');
+                        socket.emit('updatePlayer', [pos, rot, socket.id]);
+                    }, 100);
+
+                    //test with button
                     btn.addEventListener('click', function(){
                         socket.emit('btnClick');
                     });
 
+                    //updates player location
+                    socket.on('updatePlayer', (data)=>{
+                        let player = document.getElementById(data[2]);
+
+                        //if player exisits then update it's location
+                        if(player){
+                            player.setAttribute('position', data[0]);
+                            player.setAttribute('rotation', data[1]);
+                        }
+                        
+                    });
+
+                    //creates players when they join
+                    socket.on('joined', (data)=>{
+                        console.log('someone joined');
+                        
+                        let scene = document.querySelector("a-scene");
+
+                        let player = document.createElement('a-box');
+                        player.setAttribute('color', 'green');
+                        player.setAttribute('position', {x:0, y:1, z: 1});
+                        player.setAttribute('rotation', {x:0, y:0, z: 0});
+                        player.setAttribute('id', data);
+
+                        scene.append(player);
+
+                        socket.emit('drawExisting', [data, socket.id]);
+                    });
+
+                    //draws exisiting players
+                    socket.on('existing', (data)=>{
+                        let scene = document.querySelector("a-scene");
+
+                        let player = document.createElement('a-box');
+                        player.setAttribute('color', 'blue');
+                        player.setAttribute('position', {x:0, y:1, z: 3});
+                        player.setAttribute('rotation', {x:0, y:0, z: 0});
+                        player.setAttribute('id', data);
+
+                        scene.append(player);
+                    });
 
                     //adding change events
                     for(i=0; i < moles.length; i++){
@@ -109,13 +172,15 @@
                             mole.emit('rising', null, false);
                         }
 
+                        //add chance of cork
+
                     });
 
+                    //when a mole is clicked or missed
                     socket.on('moleDrop', (data)=>{
                         let mole = moles[data];
                         mole.emit('fall', null, false);
                     });
-
 
                 });
 

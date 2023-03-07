@@ -27,9 +27,21 @@ let mStand;
 //socket.io / websockets stuff
 io.on('connection', (socket)=>{
     console.log(socket.id + " connected");
+    
+    socket.broadcast.emit('joined', socket.id);//draws a players who joined for exisiting ones
 
     socket.on("disconnect", (data)=>{
         console.log(socket.id + ' disconnected');
+    });
+
+    //used to draw exisiting players for players who joined
+    socket.on('drawExisting', (data)=>{
+        console.log('drawing exisiting');
+        io.to(data[0]).emit('existing', data[1]);
+    });
+
+    socket.on('updatePlayer', (data)=>{
+        socket.broadcast.emit('updatePlayer', data);
     });
 
     //adding custom events
@@ -37,10 +49,6 @@ io.on('connection', (socket)=>{
         io.sockets.emit("posChange", {x:2, y:0.5, z:0});
         console.log("changing position");
     });
-
-    /*socket.on('moleMoved', (data)=>{
-        io.sockets.emit('molePos', {id:data.id, x:data.x, y:data.y, z:data.z});
-    });*/
 
     //for when a player hits a mole
     socket.on('mHit', (data)=>{
@@ -60,7 +68,7 @@ io.on('connection', (socket)=>{
 
 });
 
-let mDown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
+//let mDown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
 let cycle = 0;
 let moleNum = 2;
 
@@ -69,10 +77,15 @@ setInterval(function(){
     
     let pushUp = []; //list of moles to have pop up
 
-    //pick x num of moles
-    for(let i = 0; i < moleNum; i++){
-        let randIdx = Math.floor(Math.random() * 3);    //make sure to watch for length of moles
-        pushUp.push(randIdx);
+    //picking unique random number
+    while(pushUp.length < moleNum){
+        
+        let randIdx = Math.floor(Math.random() * 3);
+
+        //only add to list if the number hasn't been chosen yet
+        if(pushUp.indexOf(randIdx) == -1){
+            pushUp.push(randIdx);
+        }
     }
 
     if(cycle == 0){
@@ -90,22 +103,9 @@ setInterval(function(){
             io.sockets.emit('molePop', pushUp);
         }, 300);
     } 
-    
-    /*else if(mStand != -1){
-        
-        //moles that are untouched
-        io.sockets.emit('moleDrop', mStand);
-        setTimeout(function(){
-            io.sockets.emit('molePop', randIdx);
-        }, 300);
-
-    } else {
-        //moles that are touched
-        io.sockets.emit('molePop', randIdx);
-    }*/
 
     mStand = pushUp; //store previously standing moles for next loop
 
     cycle++;
     
-}, 3000);
+}, 3000); //reduce time given expontially by 0.75 each 3 cycles

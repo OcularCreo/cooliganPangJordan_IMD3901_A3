@@ -8,6 +8,7 @@ let camEl = 0;
 window.onload = function(){
 
     camEl = document.getElementById('camera');
+    console.log('starting');
 
     holding = false;    //determines if object is being held
     
@@ -23,6 +24,9 @@ window.onload = function(){
 AFRAME.registerComponent('holdable', {
     init:function(){
         this.el.addEventListener('click', function(){
+    
+            camEl = document.getElementById('camera');
+
             let item = this.cloneNode(true);
             camEl.appendChild(item);
             item.setAttribute("position", {x: -0.8, y:-0.8, z:-1});
@@ -33,3 +37,5 @@ AFRAME.registerComponent('holdable', {
         });
     }
 });
+
+
