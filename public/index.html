@@ -32,12 +32,12 @@
             <!--Mole Model -->
             <a-entity position="0 0 0" class="">
                 <a-entity class="interactive" position="1 0 0" id="mole">
-                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
-                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25" class="interactive"></a-sphere>
-                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
-                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025" class="interactive"></a-sphere>
+                    <a-cylinder id="mBody"  position="0 0 0"           material="color:#FFD700; metalness: 0.4;" height="1" radius="0.25" class="interactive"></a-cylinder>
+                    <a-sphere   id="mHead"  position="0 0.5 0"         material="color:#FFD700; metalness: 0.4;" radius="0.25" class="interactive"></a-sphere>
+                    <a-cone     id="mSnout" position="0 0.35 0.27"     material="color:#FFD700; metalness: 0.4;" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
+                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" material="color:#FFD700; metalness: 0.4;"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  material="color:#FFD700; metalness: 0.4;"  radius="0.05" class="interactive"></a-sphere>
+                    <a-sphere   id="mNose"  position="0 0.352 0.398"   material="color:#FFD700; metalness: 0.4;"  radius="0.025" class="interactive"></a-sphere>
                 </a-entity>
                 <a-entity class="interactive" position="0 0 0" id="mole">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
@@ -59,7 +59,13 @@
             
 
             <!-- Cork Model -->
-            <a-cone holdable class="interactive" position="0 0.5 1" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+            <a-cone holdable id="test" class="interactive" position="0 0.5 1" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+
+            <a-cylinder id="hole1" placeable class="interactive" position="-6 0 6" color="#402905" radius="0.3" height="0.05">
+            </a-cylinder>
+
+            <a-cylinder id="hole2" placeable class="interactive" position="6 0 6" color="#402905" radius="0.3" height="0.05">
+            </a-cylinder>
 
             <!--Place holder for moles-->
             <a-entity position="5 0 0" id="moles">
@@ -83,6 +89,39 @@
                 socket.on('connect', (userData)=> {
 
                     //console.log(socket.id);
+
+                    //for when a player picks up a cork
+                    socket.on('inhand', (data)=>{
+                        let cork    = document.getElementById(data[0]);
+                        let player  = document.getElementById(data[1]);
+
+                        //check if player exists
+                        if(player){
+                            newCork = cork.cloneNode(true);
+                            player.appendChild(newCork);
+
+                            newCork.setAttribute("position", {x: -0.8, y:-0.8, z:-1});
+                            cork.remove();
+                            holding = false;
+                        }
+                    });
+
+                    //for when another player places a cork
+                    socket.on('inhole', (data)=>{
+                        let cork    = document.getElementById(data[0]);
+                        let player  = document.getElementById(data[1]);
+                        let hole    = document.getElementById(data[2]);
+
+                        //check if player exists
+                        if(player){
+                            newCork = cork.cloneNode(true);
+                            hole.appendChild(newCork);
+                            
+                            newCork.setAttribute("position", {x: 0, y:0, z:0});
+                            cork.remove();
+                            holding = false;
+                        }
+                    })
 
                     setInterval(function(){
                         let camera = document.getElementById('camera');
@@ -123,7 +162,7 @@
 
                         scene.append(player);
 
-                        socket.emit('drawExisting', [data, socket.id]);
+                        socket.emit('createExisting', [data, socket.id]);
                     });
 
                     //draws exisiting players

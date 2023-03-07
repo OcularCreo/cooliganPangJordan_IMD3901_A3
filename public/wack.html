@@ -40,28 +40,28 @@
             -->
 
             <!--Top row -->
-            <a-cylinder position="-6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="-2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_0" placeable position="-6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_1" placeable position="-2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_2" placeable position="2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_3" placeable position="6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
 
             <!--Top-mid row -->
-            <a-cylinder position="-6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="-2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_4" placeable position="-6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_5" placeable position="-2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_6" placeable position="2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_7" placeable position="6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
 
             <!--Bottom-mid row -->
-            <a-cylinder position="-6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="-2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_8" placeable position="-6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_9" placeable position="-2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_10" placeable position="2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_11" placeable position="6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
 
             <!--Bottom row -->
-            <a-cylinder position="-6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="-2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-            <a-cylinder position="6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_12" placeable position="-6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_13" placeable position="-2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_14" placeable position="2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+            <a-cylinder id="hole_15" placeable position="6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
 
             <!-- Mole Model -->
             <a-entity position="0 0 0" id="mole">
@@ -72,6 +72,148 @@
                 <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                 <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
             </a-entity>
+
+            <!-- Cork Model -->
+            <a-cone id="cork_0" holdable position="2 0 2" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+
+            <!--Socket.io scripts/javascript -->
+            <script src="/socket.io/socket.io.js"></script>
+            <script>
+                
+                let socket = io();
+
+                //**** SOCKET CODE FOR PLAYER PRESENCE ****
+                
+                //sends out update of player location
+                setInterval(function(){
+                    let camera = document.getElementById('camera');
+                    
+                    let rot = camera.getAttribute('rotation');
+                    let pos = camera.getAttribute('position');
+                    socket.emit('updatePlayer', [pos, rot, socket.id]);
+                }, 100); //might want to change this to 10 for smoother updates
+
+                //updates location of other players if they are logged in
+                socket.on('updatePlayer', (data)=>{
+                    let player = document.getElementById(data[2]);
+
+                    //if player exisits then update it's location
+                    if(player){
+                        player.setAttribute('position', data[0]);
+                        player.setAttribute('rotation', data[1]);
+                    }
+                    
+                });
+
+                //creates player for existing players when they join
+                socket.on('joined', (data)=>{
+                    //console.log('someone joined');
+                    
+                    let scene = document.querySelector("a-scene");
+
+                    let player = document.createElement('a-box');
+                    player.setAttribute('color', 'green');
+                    player.setAttribute('position', {x:0, y:1, z: 1});
+                    player.setAttribute('rotation', {x:0, y:0, z: 0});
+                    player.setAttribute('id', data);
+
+                    scene.append(player);
+
+                    //calls emit to create already exisiting players for the player who just joined
+                    socket.emit('createExisting', [data, socket.id]);
+                });
+
+                //creates exisiting players for those who join
+                socket.on('existing', (data)=>{
+                    let scene = document.querySelector("a-scene");
+
+                    let player = document.createElement('a-box');
+                    player.setAttribute('color', 'blue');
+                    player.setAttribute('position', {x:0, y:1, z: 3});
+                    player.setAttribute('rotation', {x:0, y:0, z: 0});
+                    player.setAttribute('id', data);
+
+                    scene.append(player);
+                });
+
+                //delete players that have disconnected
+                socket.on('playerLeft', (data)=>{
+                    let scene = document.querySelector("a-scene");
+                    let gonePlayer = document.getElementById(data);
+
+                    scene.removeChild(gonePlayer);
+
+                });
+
+                //***** SOCKET CODE FOR UPDATING CORKS *****
+
+                //for when a player picks up a cork
+                socket.on('inhand', (data)=>{
+                    //search for cork and player
+                    let cork    = document.getElementById(data[0]);
+                    let player  = document.getElementById(data[1]);
+
+                    //check if player exists
+                    if(player){
+                        //create new cork and add it to exisitng player
+                        newCork = cork.cloneNode(true);
+                        player.appendChild(newCork);
+
+                        newCork.setAttribute("position", {x: -0.8, y:-0.8, z:-1});
+                        cork.remove();
+
+                        holding = false; //might need to change this
+                    }
+                });
+
+                //for when another player places a cork
+                socket.on('inhole', (data)=>{
+                    //look for cork, player, and hole in the scene
+                    let cork    = document.getElementById(data[0]);
+                    let player  = document.getElementById(data[1]);
+                    let hole    = document.getElementById(data[2]);
+
+                    //check if player exists
+                    if(player){
+                        //add cork to hole
+                        newCork = cork.cloneNode(true);
+                        hole.appendChild(newCork);
+                        
+                        newCork.setAttribute("position", {x: 0, y:0, z:0});
+                        cork.remove();
+                        holding = false;
+                    }
+                })
+
+                //**** SOCKET CODE FOR MOLES *****
+
+                //when a mole is clicked or missed
+                //find mole that has been missed or clicked. Make it fall.
+                socket.on('moleDrop', (data)=>{
+                    let mole = moles[data];
+                    mole.emit('fall', null, false);
+                });
+                
+                //server determines which mole to have pop up
+                //data should be a list of moles to have pop up
+                socket.on('molePop', (data)=>{
+                    
+                    //go through all moles in data and have them stand up
+                    for(let i = 0; i < data.length; i++){
+                        let mole = moles[data[i]];
+                        mole.emit('rising', null, false);
+                    }
+                    //add chance of cork
+                });
+
+                /*console.log(moles);
+                for(i=0; i < moles.length; i++){
+                    moles[i].addEventListener('click', function(){
+                        socket.emit('mHit', this.id);
+                    });
+                }*/
+
+            </script>
 
             <!-- moles parent group -->
             <a-entity id="moles" position="0 0 0" class="interactive">
@@ -204,127 +346,6 @@
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
             </a-entity>
-
-            <!-- Cork Model -->
-            <a-cone position="2 0 2" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
-
-            <!--Socket.io scripts/javascript -->
-            <script src="/socket.io/socket.io.js"></script>
-            <script>
-                
-                let socket = io();
-
-                //**** SOCKET CODE FOR PLAYER PRESENCE ****
-                
-                //sends out update of player location
-                setInterval(function(){
-                    let camera = document.getElementById('camera');
-                    
-                    let rot = camera.getAttribute('rotation');
-                    let pos = camera.getAttribute('position');
-                    socket.emit('updatePlayer', [pos, rot, socket.id]);
-                }, 100); //might want to change this to 10 for smoother updates
-
-                //updates location of other players if they are logged in
-                socket.on('updatePlayer', (data)=>{
-                    let player = document.getElementById(data[2]);
-
-                    //if player exisits then update it's location
-                    if(player){
-                        player.setAttribute('position', data[0]);
-                        player.setAttribute('rotation', data[1]);
-                    }
-                    
-                });
-
-                //creates player for existing players when they join
-                socket.on('joined', (data)=>{
-                    //console.log('someone joined');
-                    
-                    let scene = document.querySelector("a-scene");
-
-                    let player = document.createElement('a-box');
-                    player.setAttribute('color', 'green');
-                    player.setAttribute('position', {x:0, y:1, z: 1});
-                    player.setAttribute('rotation', {x:0, y:0, z: 0});
-                    player.setAttribute('id', data);
-
-                    scene.append(player);
-
-                    //calls emit to create already exisiting players for the player who just joined
-                    socket.emit('createExisting', [data, socket.id]);
-                });
-
-                //creates exisiting players for those who join
-                socket.on('existing', (data)=>{
-                    let scene = document.querySelector("a-scene");
-
-                    let player = document.createElement('a-box');
-                    player.setAttribute('color', 'blue');
-                    player.setAttribute('position', {x:0, y:1, z: 3});
-                    player.setAttribute('rotation', {x:0, y:0, z: 0});
-                    player.setAttribute('id', data);
-
-                    scene.append(player);
-                });
-
-                //delete players that have disconnected
-                socket.on('playerLeft', (data)=>{
-                    let scene = document.querySelector("a-scene");
-                    let gonePlayer = document.getElementById(data);
-
-                    scene.removeChild(gonePlayer);
-
-                });
-
-                //**** SOCKET CODE FOR MOLES *****
-
-                //when a mole is clicked or missed
-                //find mole that has been missed or clicked. Make it fall.
-                socket.on('moleDrop', (data)=>{
-                    let mole = moles[data];
-                    mole.emit('fall', null, false);
-                });
-                
-                //server determines which mole to have pop up
-                //data should be a list of moles to have pop up
-                socket.on('molePop', (data)=>{
-                    
-                    //go through all moles in data and have them stand up
-                    for(let i = 0; i < data.length; i++){
-                        let mole = moles[data[i]];
-                        mole.emit('rising', null, false);
-                    }
-                    //add chance of cork
-                });
-
-                /*console.log(moles);
-                for(i=0; i < moles.length; i++){
-                    moles[i].addEventListener('click', function(){
-                        socket.emit('mHit', this.id);
-                    });
-                }*/
-
-            </script>
-
-            <!-- ALL MOLES IN SCENE. PLACED HERE TO REDUCE SCROLLING -->
-            
-            <!-- 
-
-            GRID
-            (0, 0) at center of config. Ex index 7 is at (2, 2)
-
-            Index Order
-            1   2   3   4
-
-            5   6   7   8
-
-            9   10  11  12
-
-            13  14  15  16
-            
-            -->
-
 
         </a-scene>
     </body>

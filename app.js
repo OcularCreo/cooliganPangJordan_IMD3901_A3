@@ -35,6 +35,15 @@ io.on('connection', (socket)=>{
         console.log(socket.id + ' disconnected');
     });
 
+    /***** APP.JS SOCKETS CODE FOR UPDATING CORK LOCATIONS *****/
+    socket.on('pickCork', (data)=>{
+        socket.broadcast.emit('inhand', data);
+    })
+
+    socket.on('placeCork', (data)=>{
+        socket.broadcast.emit('inhole', data);
+    });
+
     /***** APP.JS SOCKETS CODE FOR JOINING, EXISITING, AND UPDATING PLAYERS *****/ 
 
     socket.broadcast.emit('joined', socket.id);//draws a players who joined for exisiting ones
