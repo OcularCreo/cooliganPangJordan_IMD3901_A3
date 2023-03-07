@@ -27,16 +27,20 @@ let mStand;
 //socket.io / websockets stuff
 io.on('connection', (socket)=>{
     console.log(socket.id + " connected");
-    
-    socket.broadcast.emit('joined', socket.id);//draws a players who joined for exisiting ones
 
     socket.on("disconnect", (data)=>{
+        
+        socket.broadcast.emit('playerLeft', socket.id);
+        
         console.log(socket.id + ' disconnected');
     });
 
+    /***** APP.JS SOCKETS CODE FOR JOINING, EXISITING, AND UPDATING PLAYERS *****/ 
+
+    socket.broadcast.emit('joined', socket.id);//draws a players who joined for exisiting ones
+
     //used to draw exisiting players for players who joined
-    socket.on('drawExisting', (data)=>{
-        console.log('drawing exisiting');
+    socket.on('createExisting', (data)=>{
         io.to(data[0]).emit('existing', data[1]);
     });
 
@@ -44,11 +48,7 @@ io.on('connection', (socket)=>{
         socket.broadcast.emit('updatePlayer', data);
     });
 
-    //adding custom events
-    socket.on('btnClick', (data)=>{
-        io.sockets.emit("posChange", {x:2, y:0.5, z:0});
-        console.log("changing position");
-    });
+    /***** APP.JS SOCKETS CODE FOR MOLE EVENTS *****/
 
     //for when a player hits a mole
     socket.on('mHit', (data)=>{
@@ -63,19 +63,23 @@ io.on('connection', (socket)=>{
             //udpate other player's moles
             io.sockets.emit('moleDrop', data);
         }
-        
+    });
+
+    //adding custom events CAN REMOVE THIS BTW
+    socket.on('btnClick', (data)=>{
+        io.sockets.emit("posChange", {x:2, y:0.5, z:0});
+        console.log("changing position");
     });
 
 });
 
-//let mDown = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
-let cycle = 0;
-let moleNum = 2;
+let cycle = 0;      //tracks what cycle the game is on (number of times a set of moles have popped up)
+let moleNum = 2;    //variable for how many moles to have pop up
 
-//generate random number
+//rises and drop moles on given interval.
 setInterval(function(){
     
-    let pushUp = []; //list of moles to have pop up
+    let pushUp = []; //temp list of moles to have pop up
 
     //picking unique random number
     while(pushUp.length < moleNum){
@@ -88,9 +92,9 @@ setInterval(function(){
         }
     }
 
+    //when it's the very first cycle just make the selected moles pop up
     if(cycle == 0){
-        //io.sockets.emit('molePop', randIdx);  
-        io.sockets.emit('molePop', pushUp);          //sending random index to all clients
+        io.sockets.emit('molePop', pushUp);//sending random index to all clients
     } else {
         
         //drop all moles that are still standing
@@ -104,8 +108,7 @@ setInterval(function(){
         }, 300);
     } 
 
-    mStand = pushUp; //store previously standing moles for next loop
-
-    cycle++;
+    mStand = pushUp;    //store previously standing moles for next loop
+    cycle++;            //keep track of cycle
     
 }, 3000); //reduce time given expontially by 0.75 each 3 cycles

@@ -5,7 +5,7 @@ let testCube = 0;
 let grabbedItem = 0;
 let camEl = 0;
 
-window.onload = function(){
+/*window.onload = function(){
 
     camEl = document.getElementById('camera');
     console.log('starting');
@@ -18,7 +18,7 @@ window.onload = function(){
         camEl.removeChild(camEl.lastChild);
     });
 
-}
+}*/
 
 //makes object with holdable attribute holdable
 AFRAME.registerComponent('holdable', {

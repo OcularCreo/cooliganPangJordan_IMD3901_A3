@@ -82,17 +82,7 @@
 
                 socket.on('connect', (userData)=> {
 
-                    console.log(socket.id);
-
-                    /*
-                    AFRAME.registerComponent('curpos', {
-                        init:function(){
-                            let rot = this.el.getAttribute('rotation');
-                            let pos = this.el.getAttribute('position');
-                            socket.emit('updatePlayer', [pos, rot, socket.id]);
-                            console.log('hello');
-                        }
-                    });*/
+                    //console.log(socket.id);
 
                     setInterval(function(){
                         let camera = document.getElementById('camera');
@@ -171,9 +161,7 @@
                             let mole = moles[data[i]];
                             mole.emit('rising', null, false);
                         }
-
                         //add chance of cork
-
                     });
 
                     //when a mole is clicked or missed
