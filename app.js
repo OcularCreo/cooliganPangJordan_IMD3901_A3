@@ -83,7 +83,7 @@ io.on('connection', (socket)=>{
 });
 
 let cycle = 0;      //tracks what cycle the game is on (number of times a set of moles have popped up)
-let moleNum = 2;    //variable for how many moles to have pop up
+let moleNum = 5;    //variable for how many moles to have pop up
 let corkPositions = [{x:4, y: 1, z: 4}, {x:-4, y: 1, z: 4}, {x:4, y: 1, z: -4}, {x:-4, y: 1, z: -4}];
 
 //rises and drop moles on given interval.
@@ -94,7 +94,7 @@ setInterval(function(){
     //picking unique random number
     while(pushUp.length < moleNum){
         
-        let randIdx = Math.floor(Math.random() * 3);
+        let randIdx = Math.floor(Math.random() * 16);
 
         //only add to list if the number hasn't been chosen yet
         if(pushUp.indexOf(randIdx) == -1){
