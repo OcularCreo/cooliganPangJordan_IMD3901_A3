@@ -36,8 +36,6 @@ let p1Lives = 5;        //var for player 1 lives
 let p2Lives = 5;        //var for player 2 lives
 let p1 = 0;             //var for tracking who player 1 is
 let p2 = 0;             //var for tracking who player 2 is
-//let p1_extraMole = -1;  //var to track if an extra mole has been sent to p1
-//let p2_extraMole = -1;  //var to track if an extra mole has been sent to p1
 let extraMole = -1;
 let sender = -1;        //tracks who sent a mole. -1 = no one, 0 = p1, 1 = p2
 
@@ -167,6 +165,7 @@ let corkPositions = [{x:4, y: 1, z: 4}, {x:-4, y: 1, z: 4}, {x:4, y: 1, z: -4}, 
 setInterval(function(){
     
     if(coop){
+        moleNum = 4;
         let pushUp = []; //temp list of moles to have pop up
 
         //picking unique random number
