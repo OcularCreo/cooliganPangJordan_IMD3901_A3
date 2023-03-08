@@ -17,7 +17,7 @@
             
             <!-- CAMERA -->
             <a-camera id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
-                <a-entity cursor="rayOrigin:mouse;" raycaster="far:20; interval:200; objects:.interactive;"></a-entity>
+                <a-entity cursor="rayOrigin:mouse;" raycaster="far:5; interval:200; objects:.interactive;"></a-entity>
             </a-camera>
 
             <!-- ENVIRONMENT -->
@@ -117,7 +117,7 @@
                     let rot = camera.getAttribute('rotation');
                     let pos = camera.getAttribute('position');
                     socket.emit('updatePlayer', [pos, rot, socket.id]);
-                }, 100); //might want to change this to 10 for smoother updates
+                }, 10); //might want to change this to 10 for smoother updates
 
                 //updates location of other players if they are logged in
                 socket.on('updatePlayer', (data)=>{

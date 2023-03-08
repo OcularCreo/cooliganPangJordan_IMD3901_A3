@@ -12,12 +12,7 @@
         <script src="js/pickup.js"></script>
         <script src="js/mole.js"></script>
     </head>
-    <body>
-
-       <a href="/wack.html">
-            <button id="btn" style="position: absolute; z-index:9999;">Testing Button</button> 
-        </a>
-        
+    <body>        
         <a-scene>
             <!--camera-->
             <a-camera curpos id="camera" camera-listener wasd-controls look-controls position="0 1.6 0">
@@ -25,194 +20,57 @@
                 <a-box></a-box>
             </a-camera>
 
-            <a-entity environment="preset:default;"></a-entity>
-            
-            <a-box holdable class="interactive" id="testCube" position="3 0.5 3" width="1" depth="1" height="1"></a-box>
+            <a-entity environment="preset:forest;"></a-entity>
 
-            <!--Mole Model -->
-            <a-entity position="0 0 0" class="">
-                <a-entity class="interactive" position="1 0 0" id="mole">
-                    <a-cylinder id="mBody"  position="0 0 0"           material="color:#FFD700; metalness: 0.4;" height="1" radius="0.25" class="interactive"></a-cylinder>
-                    <a-sphere   id="mHead"  position="0 0.5 0"         material="color:#FFD700; metalness: 0.4;" radius="0.25" class="interactive"></a-sphere>
-                    <a-cone     id="mSnout" position="0 0.35 0.27"     material="color:#FFD700; metalness: 0.4;" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
-                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" material="color:#FFD700; metalness: 0.4;"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  material="color:#FFD700; metalness: 0.4;"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mNose"  position="0 0.352 0.398"   material="color:#FFD700; metalness: 0.4;"  radius="0.025" class="interactive"></a-sphere>
-                </a-entity>
-                <a-entity class="interactive" position="0 0 0" id="mole">
-                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
-                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25" class="interactive"></a-sphere>
-                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
-                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025" class="interactive"></a-sphere>
-                </a-entity>
-                <a-entity class="interactive" position="-1 0 0" id="mole">
-                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25" class="interactive"></a-cylinder>
-                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25" class="interactive"></a-sphere>
-                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25" class="interactive"></a-cone> 
-                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05" class="interactive"></a-sphere>
-                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025" class="interactive"></a-sphere>
-                </a-entity>
+            <!-- Giant Mole decoration -->
+            <a-entity position="0 0 -10" scale="10 10 10" id="stageMole">
+                <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
+                <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
+                <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
+                <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05"></a-sphere>
+                <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
+                <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
             </a-entity>
-            
 
-            <!-- Cork Model -->
-            <a-cone holdable id="test" class="interactive" position="0 0.5 1" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone> 
+            <!-- Welcome sign -->
+            <a-box position="0 1.424 -7" color="#5FFA5C" depth="0.05" height="1.5" width="2.8"></a-box>
+            <a-text position="0 1.7 -6.95" align="center" value="Welcome to"></a-text>
+            <a-text position="0 1.3 -6.95" width="8" align="center" value="WHACK A MOLE"></a-text>
 
-            <a-cylinder id="hole1" placeable class="interactive" position="-6 0 6" color="#402905" radius="0.3" height="0.05">
-            </a-cylinder>
-
-            <a-cylinder id="hole2" placeable class="interactive" position="6 0 6" color="#402905" radius="0.3" height="0.05">
-            </a-cylinder>
-
-            <!--Place holder for moles-->
-            <a-entity position="5 0 0" id="moles">
-                <a-cylinder id="0" moleanim class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
-                <a-cylinder id="1" moleanim class="interactive" position="1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
-                <a-cylinder id="2" moleanim class="interactive" position="-1 -0.5 0" height="1" radius="0.25" color="#5C4033"></a-cylinder>
+            <!--button to go into Co-operative whack a mole -->
+            <a-text position="3 0.38716 -2.69225" align="center" width="3" value="competitive"></a-text>
+            <a-entity id="coop_btn" position="-3 0 -3">
+                <a-entity   id="btn_end" class="button interactive" position="0 0.8 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(255, 100, 100)"
+                            animation__mouseenter="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:mouseenter; dur:200;"
+                            animation__mouseleave="property:material.color; type:color; to:rgb(255, 100, 100); startEvents:mouseleave; dur:200;"
+                            animation__click="property:position.y; to:0.8; from:0.75; startEvents:click; dur:300;"
+                            ></a-entity>
+                <a-box position="0 0.4 0" height="0.8" width="1.2" depth="0.5" color="#90EE90"></a-box>
             </a-entity>
-            
-            <!--<a-cylinder class="interactive" position="0 -0.5 0" height="1" radius="0.25" color="#5C4033"
-                            animation__click="property:position.y; to:-0.5; from:0.5; startEvents:click; dur:300;"
-                            animation__pop="property:position.y; to:0.5; from:-0.5; startEvents:popping; dur:300;"></a-cylinder>-->
 
-            <!--transparent box? -->
-            <!--<a-box position="-1 1 -1" material="transperent:true; opacity:0;"></a-box>-->
+            <!--button to go into battle whack a mole -->
+            <a-text position="-3 0.38716 -2.69225" align="center" width="3" value="cooperative"></a-text>
+            <a-entity id="battle_btn" position="3 0 -3">
+                <a-entity   id="btn_end" class="button interactive" position="0 0.8 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(255, 100, 100)"
+                            animation__mouseenter="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:mouseenter; dur:200;"
+                            animation__mouseleave="property:material.color; type:color; to:rgb(255, 100, 100); startEvents:mouseleave; dur:200;"
+                            animation__click="property:position.y; to:0.8; from:0.75; startEvents:click; dur:300;"
+                            ></a-entity>
+                <a-box position="0 0.4 0" height="0.8" width="1.2" depth="0.5" color="#013220"></a-box>
+            </a-entity>
 
-            <a-box position="4 1 0">
-                <a-text position="0 0 0" anchor="align" value="Hello world"></a-text>
-            </a-box>
-            
-            <script src="/socket.io/socket.io.js"></script>
+            <!--making buttons bring players to appropriate pages-->
             <script>
-                
-                let socket = io();
 
-                socket.on('connect', (userData)=> {
+                let coopBtn = document.getElementById('coop_btn');
+                let batBtn = document.getElementById('battle_btn');
 
-                    //console.log(socket.id);
+                coopBtn.addEventListener("click", function(){
+                    location.replace("./wack.html");
+                });
 
-                    //for when a player picks up a cork
-                    socket.on('inhand', (data)=>{
-                        let cork    = document.getElementById(data[0]);
-                        let player  = document.getElementById(data[1]);
-
-                        //check if player exists
-                        if(player){
-                            newCork = cork.cloneNode(true);
-                            player.appendChild(newCork);
-
-                            newCork.setAttribute("position", {x: -0.8, y:-0.8, z:-1});
-                            cork.remove();
-                            holding = false;
-                        }
-                    });
-
-                    //for when another player places a cork
-                    socket.on('inhole', (data)=>{
-                        let cork    = document.getElementById(data[0]);
-                        let player  = document.getElementById(data[1]);
-                        let hole    = document.getElementById(data[2]);
-
-                        //check if player exists
-                        if(player){
-                            newCork = cork.cloneNode(true);
-                            hole.appendChild(newCork);
-                            
-                            newCork.setAttribute("position", {x: 0, y:0, z:0});
-                            cork.remove();
-                            holding = false;
-                        }
-                    });
-
-                    setInterval(function(){
-                        let camera = document.getElementById('camera');
-                        
-                        let rot = camera.getAttribute('rotation');
-                        let pos = camera.getAttribute('position');
-                        socket.emit('updatePlayer', [pos, rot, socket.id]);
-                    }, 100);
-
-                    //test with button
-                    btn.addEventListener('click', function(){
-                        socket.emit('btnClick');
-                    });
-
-                    //updates player location
-                    socket.on('updatePlayer', (data)=>{
-                        let player = document.getElementById(data[2]);
-
-                        //if player exisits then update it's location
-                        if(player){
-                            player.setAttribute('position', data[0]);
-                            player.setAttribute('rotation', data[1]);
-                        }
-                        
-                    });
-
-                    //creates players when they join
-                    socket.on('joined', (data)=>{
-                        console.log('someone joined');
-                        
-                        let scene = document.querySelector("a-scene");
-
-                        let player = document.createElement('a-box');
-                        player.setAttribute('color', 'green');
-                        player.setAttribute('position', {x:0, y:1, z: 1});
-                        player.setAttribute('rotation', {x:0, y:0, z: 0});
-                        player.setAttribute('id', data);
-
-                        scene.append(player);
-
-                        socket.emit('createExisting', [data, socket.id]);
-                    });
-
-                    //draws exisiting players
-                    socket.on('existing', (data)=>{
-                        let scene = document.querySelector("a-scene");
-
-                        let player = document.createElement('a-box');
-                        player.setAttribute('color', 'blue');
-                        player.setAttribute('position', {x:0, y:1, z: 3});
-                        player.setAttribute('rotation', {x:0, y:0, z: 0});
-                        player.setAttribute('id', data);
-
-                        scene.append(player);
-                    });
-
-                    //adding change events
-                    for(i=0; i < moles.length; i++){
-                        moles[i].addEventListener('click', function(){
-                            socket.emit('mHit', this.id);
-                        });
-                    }
-
-                    //not needed anymore
-                    socket.on('posChange', (data)=> {
-                        let cube = document.getElementById("testCube");
-                        cube.setAttribute("position", {x: data.x, y:data.y, z:data.z});
-                        console.log('changed position');
-
-                    });
-
-                    //server determines which mole to have pop up
-                    socket.on('molePop', (data)=>{
-                        
-                        for(let i = 0; i < data.length; i++){
-                            let mole = moles[data[i]];
-                            mole.emit('rising', null, false);
-                        }
-                        //add chance of cork
-                    });
-
-                    //when a mole is clicked or missed
-                    socket.on('moleDrop', (data)=>{
-                        let mole = moles[data];
-                        mole.emit('fall', null, false);
-                    });
-
+                batBtn.addEventListener("click", function(){
+                    location.replace("./attack.html");
                 });
 
             </script>
