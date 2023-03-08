@@ -1,27 +1,13 @@
 let holding = false;    //veraible to tell if player is holding an item
 let camEl = 0;          //variable for camera element
 
-let curCork = 0;
-let corkFloating = false;
-
-/*window.onload = function(){
-
-    camEl = document.getElementById('camera');
-    console.log('starting');
-
-    holding = false;    //determines if object is being held
-    
-    //temporary and used for tests
-    btn = document.getElementById('btn');
-    btn.addEventListener('click', function(){
-        camEl.removeChild(camEl.lastChild);
-    });
-
-}*/
+let curCork = 0;            //variable to determine number of exisiting corks in the game
+let corkFloating = false;   //variable to determine if cork has been grabbed
+let pbFloating = false;
 
 //function creates corks at one of 4 locations
 function createCork(position){
-    
+
     let cork= document.createElement('a-cone');
     cork.setAttribute('position', position);
     cork.setAttribute('color', '#DAA06D');
@@ -44,11 +30,11 @@ AFRAME.registerComponent('holdable', {
         this.el.setAttribute("class", "interactive");
 
         //animation components for corks
-        let curPos = this.el.getAttribute('position');
+        /*let curPos = this.el.getAttribute('position');
         this.el.setAttribute('animation__drop', {'property':'position', 'to': {x:curPos.x, y:-0.75, z:curPos.z},
                                                 'startEvents': 'fall', 'dur': 300});
         this.el.setAttribute('animation__rise', {'property':'position', 'to': {x:curPos.x, y:1, z:curPos.z},
-                                                'startEvents': 'rising', 'dur': 300});
+                                                'startEvents': 'rising', 'dur': 300});*/
 
         this.el.addEventListener('mousedown', function(){
             
@@ -97,7 +83,6 @@ AFRAME.registerComponent('placeable', {
                 socket.emit('placeCork', [cork.getAttribute("id"), socket.id, this.getAttribute("id")])
             }
         });
-
     }
 });
 

@@ -81,6 +81,10 @@
             <!--transparent box? -->
             <!--<a-box position="-1 1 -1" material="transperent:true; opacity:0;"></a-box>-->
 
+            <a-box position="4 1 0">
+                <a-text position="0 0 0" anchor="align" value="Hello world"></a-text>
+            </a-box>
+            
             <script src="/socket.io/socket.io.js"></script>
             <script>
                 
@@ -121,7 +125,7 @@
                             cork.remove();
                             holding = false;
                         }
-                    })
+                    });
 
                     setInterval(function(){
                         let camera = document.getElementById('camera');

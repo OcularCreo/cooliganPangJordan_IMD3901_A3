@@ -26,45 +26,59 @@
             <!-- 
 
             GRID
-            (0, 0) at center of config. Ex index 7 is at (2, 2)
-
             Index Order
-            1   2   3   4
-
-            5   6   7   8
-
-            9   10  11  12
-
-            13  14  15  16
+            player 1
+            1   2   3
             
+            4   5   6
+
+            7   8   9
+            
+            player 2
+            10  11  12
+
+            13  14  15
+
+            16  17  18
             -->
 
-            <!-- Group of holes -->
+            <!-- Player 1 Group of holes -->
             <a-entity id="holes" position="0 0 0">
+                <!--PLAYER 1-->
                 <!--Top row -->
-                <a-cylinder id="hole_0" placeable position="-6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_1" placeable position="-2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_2" placeable position="2 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_3" placeable position="6 0 6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+                <a-cylinder id="hole_0" placeable position="-10 0 4" color="#402905" radius="0.3" height="0.1"></a-cylinder>
+                <a-cylinder id="hole_1" placeable position="-6 0 4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_2" placeable position="-2 0 4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
 
-                <!--Top-mid row -->
-                <a-cylinder id="hole_4" placeable position="-6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_5" placeable position="-2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_6" placeable position="2 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_7" placeable position="6 0 2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-
-                <!--Bottom-mid row -->
-                <a-cylinder id="hole_8" placeable position="-6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_9" placeable position="-2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_10" placeable position="2 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_11" placeable position="6 0 -2" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+                <!--mid row -->
+                <a-cylinder id="hole_3" placeable position="-10 0 0" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_4" placeable position="-6 0 0" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_5" placeable position="-2 0 0" color="#402905" radius="0.3" height="0.075"></a-cylinder>
 
                 <!--Bottom row -->
-                <a-cylinder id="hole_12" placeable position="-6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_13" placeable position="-2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_14" placeable position="2 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
-                <a-cylinder id="hole_15" placeable position="6 0 -6" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+                <a-cylinder id="hole_6" placeable position="-10 0 -4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_7" placeable position="-6 0 -4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_8" placeable position="-2 0 -4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+
+                <!--PLAYER 2-->
+                <!--Top row -->
+                <a-cylinder id="hole_9" placeable position="2 0 4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_10" placeable position="6 0 4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_11" placeable position="10 0 4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+
+                <!--mid row -->
+                <a-cylinder id="hole_12" placeable position="2 0 0" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_13" placeable position="6 0 0" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_14" placeable position="10 0 0" color="#402905" radius="0.3" height="0.05"></a-cylinder>
+
+                <!--Bottom row -->
+                <a-cylinder id="hole_15" placeable position="2 0 -4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_16" placeable position="6 0 -4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
+                <a-cylinder id="hole_17" placeable position="10 0 -4" color="#402905" radius="0.3" height="0.075"></a-cylinder>
             </a-entity>
+
+            <!--GRID DIVIDER -->
+            <a-box position="0 0.025 0" width="0.05" height="0.05" depth="8"></a-box>
 
             <!-- Start Button and banner -->
             <a-text id="starttxt" position="0 2 -10.45" align="center" value="Press to\nBegin!"></a-text>
@@ -95,12 +109,40 @@
             <a-box position="2 2 -10.5" width="2" height="1" depth="0.05" color="#013220"></a-box>
             <a-cone id="cork_-1" position="2 0.5 -10" color="#DAA06D" rotation="0 0 0" radius-bottom="0.15" radius-top="0.25" height="0.5"></a-cone>
 
+            <!-- bait model (peanut butter) with banner -->
+            <a-text position="4 1.5 9.95" rotation="0 180 0" align="center" value="Click peanut butter \nto SEND MOLES to\nyour opponent!"></a-text>
+            <a-box position="4 1.5 10" width="2" height="1" depth="0.05" color="#013220"></a-box>
+            <a-entity id="pButter_model" position="4 0.75 9.5">
+                <a-cylinder position="0 0 0" height="0.6" radius="0.25" color="#d8b887"></a-cylinder>
+                <a-cylinder position="0 0.3 0" height="0.075" radius="0.27" color="red"></a-cylinder>
+            </a-entity>
+
             <!-- Scoreboard -->
-            <a-text position="1 2.5 9.95" rotation="0 180 0" align="center" value="LIVES"></a-text>
-            <a-text id="livestxt" position="1 2 9.95" rotation="0 180 0" width="10" height="10" align="center" value="5"></a-text>
-            <a-text position="-1 2.5 9.95" rotation="0 180 0" align="center" value="MOLES HIT"></a-text>
-            <a-text id="molestxt" position="-1 2 9.95" rotation="0 180 0" width="10" height="10" align="center" value="0"></a-text>
+            <a-text position="1 2.5 9.95" rotation="0 180 0" align="center" value="P2 LIVES"></a-text>
+            <a-text id="p2txt" position="1 2 9.95" rotation="0 180 0" width="10" height="10" align="center" value="5"></a-text>
+            <a-text position="-1 2.5 9.95" rotation="0 180 0" align="center" value="P1 LIVES"></a-text>
+            <a-text id="p1txt" position="-1 2 9.95" rotation="0 180 0" width="10" height="10" align="center" value="5"></a-text>
             <a-box position="0 2 10" width="4" height="2" depth="0.05" color="#013220"></a-box>
+
+            <!-- Player 1 button -->
+            <a-entity id="p2_btn" position="1 0 9">
+                <a-entity   id="btn_start" class="interactive" position="0 0.8 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(255, 100, 100)"
+                            animation__mouseenter="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:mouseenter; dur:200;"
+                            animation__mouseleave="property:material.color; type:color; to:rgb(255, 100, 100); startEvents:mouseleave; dur:200;"
+                            animation__click="property:position.y; to:0.8; from:0.75; startEvents:click; dur:300;"
+                            ></a-entity>
+                <a-box position="0 0.4 0" height="0.8" width="0.5" depth="0.5" color="blue"></a-box>
+            </a-entity>
+
+            <!-- Start Button and banner -->
+            <a-entity id="p1_btn" position="-1 0 9">
+                <a-entity   id="btn_start" class="interactive" position="0 0.8 0" geometry="primitive:cylinder; radius:0.15; height:0.2;" material="color:rgb(255, 100, 100)"
+                            animation__mouseenter="property:material.color; type:color; to:rgb(255, 0, 0); startEvents:mouseenter; dur:200;"
+                            animation__mouseleave="property:material.color; type:color; to:rgb(255, 100, 100); startEvents:mouseleave; dur:200;"
+                            animation__click="property:position.y; to:0.8; from:0.75; startEvents:click; dur:300;"
+                            ></a-entity>
+                <a-box position="0 0.4 0" height="0.8" width="0.5" depth="0.5" color="green"></a-box>
+            </a-entity>
 
             <!--Socket.io scripts/javascript -->
             <script src="/socket.io/socket.io.js"></script>
@@ -170,7 +212,7 @@
 
                 });
 
-                //***** SOCKET CODE FOR UPDATING CORKS *****
+                //***** SOCKET CODE FOR UPDATING CORKS AND PEANUTBUTTERS *****
 
                 //for when a player picks up a cork
                 socket.on('inhand', (data)=>{
@@ -213,30 +255,35 @@
                 //chance to create a cork. If so create it for all users
                 socket.on('spawnCork', (data)=>{
                     
-                    //creating cork (should only make up to 4)
-                    if(curCork < 4){
-                        let scene = document.querySelector("a-scene");
-                        scene.appendChild(createCork(data));
-                        corkFloating = true;
-                        console.log("created cork");
-                    }
+                    let scene = document.querySelector("a-scene");
+                    scene.appendChild(createCork(data));
+                    console.log("created cork");
+                    corkFloating = true;
+                    
+                });
+
+                //chance to create a cork. If so create it for all users
+                socket.on('spawnPB', (data)=>{
+                    
+                    console.log('creating PB');
+
+                    let scene = document.querySelector("a-scene");
+                    scene.appendChild(createPB(data));
+                    pbFloating = true;
                     
                 });
 
                 //removes a cork if a player doesn't grab it in time
-                socket.on('removeCork', (data)=>{
-                    //when a cork has been made but not picked up, delete it
+                socket.on('removePB', (data)=>{
+                    //when a peanut butter has been made but not picked up, delete it
+                    if(pbFloating){
 
-                    console.log("called remove cork");
-                    if(corkFloating){
+                        console.log('Removing PB');
 
-                        console.log('removing cork');
-
-                        let cork = document.getElementById('cork_'+ (curCork -1));
+                        let PB = document.getElementById('PB');
                         let scene = document.querySelector("a-scene");
-                        scene.removeChild(cork);
-                        curCork--;
-                        corkFloating = false;
+                        scene.removeChild(PB);
+                        pbFloating = false;
                     }
                 });
 
@@ -245,7 +292,8 @@
                 //when a mole is clicked or missed
                 //find mole that has been missed or clicked. Make it fall.
                 socket.on('moleDrop', (data)=>{
-                    let mole = moles[data];
+
+                    let mole = moles[data];;
                     mole.emit('fall', null, false);
                     changeMoleClass(mole, "");
                 });
@@ -258,7 +306,7 @@
 
                     //loop through all holes
                     for(let j = 0; j < holes.length; j++){
-                        childz = holes[j].children.length;
+                        let childz = holes[j].children.length;
                         
                         //when a hole has a child (cork), store it's index
                         if(childz > 0){
@@ -285,26 +333,51 @@
                     }
                 });
 
+                socket.on('popExtra', (data)=>{
+
+                    let corkPos = -1;
+
+                    //loop through all holes
+                    for(let j = 0; j < holes.length; j++){
+                        let childz = holes[j].children.length;
+                        
+                        //when a hole has a child (cork), say it's hit and exit function
+                        if(childz > 0){
+                            corkPos = j;
+                            break;
+                        }
+                    }
+
+                    //if this is true then there's a cork at its locaiton
+                    if(corkPos == data){
+                        socket.emit('extraHit');
+                    } else {
+                        moles[data].emit('rising', null, false); //if not covered by a hole have it rise
+                        changeMoleClass(moles[data], "interactive");
+                    }
+
+                });
+
                 //**** SOCKET CODE FOR SCORING *****
 
                 //update the lives for all players
-                socket.on('livesUpdate', (data)=>{
-                    let livesText = document.getElementById('livestxt');
+                socket.on('p1LivesUpdate', (data)=>{
+                    let livesText = document.getElementById('p1txt');
                     livesText.setAttribute('value', data);
                 });
 
                 //update score for all players
-                socket.on('scoreUpdate', (data)=>{
-                    let hitText = document.getElementById('molestxt');
+                socket.on('p2LivesUpdate', (data)=>{
+                    let hitText = document.getElementById('p2txt');
                     hitText.setAttribute('value', data);
                 });
 
             </script>
 
             <!-- MOLE MODELS PLACED HERE TO REDUCE NEED FOR SCROLLING -->
-            <!-- moles parent group -->
+            <!-- Player 1 moles parent group -->
             <a-entity id="moles" position="0 0 0" class="interactive">
-                <a-entity moleanim position="-6 -0.75 6" id="mole_0">
+                <a-entity moleanim position="-10 -0.75 4" id="mole_0">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -312,7 +385,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-2 -0.75 6" id="mole_1">
+                <a-entity moleanim position="-6 -0.75 4" id="mole_1">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -320,7 +393,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="2 -0.75 6" id="mole_2">
+                <a-entity moleanim position="-2 -0.75 4" id="mole_2">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -328,7 +401,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="6 -0.75 6" id="mole_3">
+                <a-entity moleanim position="-10 -0.75 0" id="mole_3">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -336,7 +409,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-6 -0.75 2" id="mole_4">
+                <a-entity moleanim position="-6 -0.75 0" id="mole_4">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -344,7 +417,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-2 -0.75 2" id="mole_5">
+                <a-entity moleanim position="-2 -0.75 0" id="mole_5">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -352,7 +425,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="2 -0.75 2" id="mole_6">
+                <a-entity moleanim position="-10 -0.75 -4" id="mole_6">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -360,7 +433,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="6 -0.75 2" id="mole_7">
+                <a-entity moleanim position="-6 -0.75 -4" id="mole_7">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -368,7 +441,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-6 -0.75 -2" id="mole_8">
+                <a-entity moleanim position="-2 -0.75 -4" id="mole_8">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -376,7 +449,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-2 -0.75 -2" id="mole_9">
+                <a-entity moleanim position="2 -0.75 4" id="mole_9">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -384,7 +457,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="2 -0.75 -2" id="mole_10">
+                <a-entity moleanim position="6 -0.75 4" id="mole_10">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -392,7 +465,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="6 -0.75 -2" id="mole_11">
+                <a-entity moleanim position="10 -0.75 4" id="mole_11">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -400,7 +473,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-6 -0.75 -6" id="mole_12">
+                <a-entity moleanim position="2 -0.75 0" id="mole_12">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -408,7 +481,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="-2 -0.75 -6" id="mole_13">
+                <a-entity moleanim position="6 -0.75 0" id="mole_13">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -416,7 +489,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="2 -0.75 -6" id="mole_14">
+                <a-entity moleanim position="10 -0.75 0" id="mole_14">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -424,7 +497,7 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-                <a-entity moleanim position="6 -0.75 -6" id="mole_15">
+                <a-entity moleanim position="2 -0.75 -4" id="mole_15">
                     <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
                     <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
                     <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
@@ -432,7 +505,24 @@
                     <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
                     <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
                 </a-entity>
-            </a-entity>
+                <a-entity moleanim position="6 -0.75 -4" id="mole_16">
+                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
+                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
+                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
+                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05"></a-sphere>
+                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
+                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
+                </a-entity>
+                <a-entity moleanim position="10 -0.75 -4" id="mole_17">
+                    <a-cylinder id="mBody"  position="0 0 0"           color="#63421b" height="1" radius="0.25"></a-cylinder>
+                    <a-sphere   id="mHead"  position="0 0.5 0"         color="#63421b" radius="0.25"></a-sphere>
+                    <a-cone     id="mSnout" position="0 0.35 0.27"     color="#DAA06D" rotation="90 0 0" radius-bottom="0.15" height="0.25"></a-cone> 
+                    <a-sphere   id="mEyeL"  position="-0.16 0.4 0.172" color="black"  radius="0.05"></a-sphere>
+                    <a-sphere   id="mEyeR"  position="0.16 0.4 0.172"  color="black"  radius="0.05"></a-sphere>
+                    <a-sphere   id="mNose"  position="0 0.352 0.398"   color="black"  radius="0.025"></a-sphere>
+                </a-entity>
+            </a-entity> 
+
         </a-scene>
     </body>
 </html>
