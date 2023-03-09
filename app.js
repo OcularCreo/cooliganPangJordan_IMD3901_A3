@@ -310,7 +310,7 @@ setInterval(function(){
 
                 //adds 10% chance component to spawning in bait/PB
                 let chance = Math.random();
-                if(chance < 0.7){
+                if(chance < 0.1){
                     io.sockets.emit('spawnPB', {x:0, y:1.25, z:0});
                 }
 
